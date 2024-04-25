@@ -1,0 +1,25 @@
+<h1>Hello Apple User</h1>
+<p>This my first Mac Webpage!!</p>
+<p>My name is {{ first_name }}</p>
+<p> accept {{ stuff|safe }}</p>
+<p> accepted title {{ stuff|title}}</p>
+<p> accepted has haded{{ stuff|striptags }}</p>
+<p>{{ favorite_pizza}}</p> <!--prints all list-->
+
+<!--Break list-->
+<h3>Favorite Pizza:</h3>
+
+ <!-- if statement -->
+ {% for topping in favorite_pizza %}
+  {%if topping == 4 %}
+  {{ topping + 100 }}<br/>
+{% else %}
+   {{ topping }}<br/>
+{% endif %}
+
+{% endfor %}
+
+<!--Get individual entity--> 
+<br/> <br/>
+ {{ favorite_pizza.1|reverse }}
+ {{ favorite_pizza|reverse }}
