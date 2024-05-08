@@ -1,5 +1,37 @@
 from flask import Flask, render_template
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+
+
+
+# Create a flask instance - form submission security
 app = Flask(__name__)
+app.config['SECRET_KEY'] = "My super secret key thats no one supposed to know"
+
+# Create a form Class
+class NamerForm(FlaskForm):
+    name = StringField("what's your Name", validators=[DataRequired()])
+    submit = SubmitField("Submit")
+    #Boolean - true or false                        ##validators
+    #DateField                                      #DataRequired
+    #DateTimeField -has both                        #Email
+    #DecimalField - eg 1.006                        #EqualTo
+    #FileField - if uploading a file                #InputRequired
+    #Hidden field                                   #IPAddress
+    #MultipleField                                  #MacAddress
+    #FieldLIst                                      #Length
+    #FloatField                                     #NumberRange
+    #FormField                                      #Optional
+    #integerField                                   #Regexp - regular expression
+    #PasswordField                                  #URL
+    #RadioField                                     #UUID
+    #SelectField                                    #AnyOf
+    #SelectMultipleField                            #NoneOf
+    #SubmitField
+    #StringField
+    #TextAreaField
+
 
    #Hello world
 
@@ -39,5 +71,29 @@ def page_not_found(e):
 @app.errorhandler(500) 
 def page_not_found(e): 
     return render_template("500.html"), 500
+
+# Create Name Page
+@app.route('/name', methods=['GET', 'POST'])
+def name():
+  
+  # Your code to handle GET or POST requests for the '/name' route
+  name = None
+  form = NamerForm()
+
+  #Validate Formpr
+  if form.validate_on_submit():
+    
+     # print("validated form")
+      name = form.name.data
+      #print("name", name)
+      form.name.data = ''
+      
+  return render_template("name.html", 
+                               name = name,
+                               form = form)
+   
+
+
+
 
 
